@@ -12,5 +12,11 @@ int main(int, char **)
     heap_insert(heap, 2);
     heap_insert(heap, 1);
 
+    for (int i = 0; i <= 10; i++)
+    {
+        int element = extract_min(heap);
+        printf("Extracted element: %i\n", element);
+    }
+
     printf("End\n");
 }
