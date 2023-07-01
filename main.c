@@ -7,12 +7,10 @@ int main(int, char **)
     Heap *heap = NULL;
 
     init_heap(&heap, 10);
-    heap_insert(heap, 4);
-    heap_insert(heap, 7);
-    heap_insert(heap, 2);
-    heap_insert(heap, 1);
-    heap_insert(heap, 3);
-    heap_insert(heap, 12);
+
+    int array[] = {4, 7, 2, 1, 3, 12};
+
+    make_heap(heap, array, 6);
 
     for (int i = 0; i <= 10; i++)
     {

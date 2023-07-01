@@ -55,6 +55,22 @@ int extract_min(Heap *heap)
     return min;
 }
 
+void make_heap(Heap *heap, int *input, size_t n)
+{
+    heap->freeSpot = n;
+
+    for (int i = 0; i < n; i++)
+        heap->buffer[i] = input[i];
+
+    //after initializing the buffer with the array's elements
+    //we need to rearange all elements to make the heap valid.
+    //since all leaves are valid heaps (with one element) and there
+    //are n/2 leaves it suffice to bubble down elements starting from
+    //the first non-leaf element
+    for (int i = (n / 2) - 1; i >= 0; i--)
+        bubble_down(heap, i);
+}
+
 void bubble_down(Heap *heap, int p)
 {
     int min_index = p;
