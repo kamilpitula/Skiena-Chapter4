@@ -4,7 +4,7 @@ typedef struct
 {
     int *buffer;
     size_t size;
-    int n;
+    int freeSpot;
 } Heap;
 
 extern void init_heap(Heap **heap, size_t size);

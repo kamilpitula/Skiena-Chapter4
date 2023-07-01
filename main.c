@@ -11,6 +11,8 @@ int main(int, char **)
     heap_insert(heap, 7);
     heap_insert(heap, 2);
     heap_insert(heap, 1);
+    heap_insert(heap, 3);
+    heap_insert(heap, 12);
 
     for (int i = 0; i <= 10; i++)
     {
