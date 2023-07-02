@@ -5,9 +5,11 @@ include(CTest)
 enable_testing()
 
 add_library(Heap STATIC heap.c heap.h)
+add_library(Sorting STATIC sorting.c sorting.h)
 add_executable(Chapter4 main.c)
 
 target_link_libraries(Chapter4 PUBLIC Heap)
+target_link_libraries(Chapter4 PUBLIC Sorting)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
