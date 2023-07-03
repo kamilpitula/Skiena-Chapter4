@@ -81,3 +81,40 @@ void do_minimize_sorted(int *sortedArray, size_t size)
 }
 
 //------------------------------------------------------------------------------------------------------------
+
+// Exercise 4.3
+
+typedef struct
+{
+    int Item1;
+    int Item2;
+} Tuple;
+
+void pair_with_smallest_sum()
+{
+    printf("Exercise 4.3 \n");
+
+    int inputArray[] = {1, 4, 9, 2};
+    quick_sort(inputArray, 4);
+
+    Tuple pairs[2];
+
+    for (int i = 0; i < 2; i++)
+    {
+        Tuple pair = {
+            .Item1 = inputArray[i],
+            .Item2 = inputArray[3 - i],
+        };
+
+        pairs[i] = pair;
+    }
+
+    printf("Selected pairs:\n");
+
+    for (int i = 0; i < 2; i++)
+    {
+        printf("Pair %i: (%i, %i)\n", i, pairs[i].Item1, pairs[i].Item2);
+    }
+}
+
+//------------------------------------------------------------------------------------------------------------

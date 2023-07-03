@@ -34,4 +34,6 @@ int main(int, char **)
     maximize_sorted();
     minimize_unsorted();
     minimize_sorted();
+
+    pair_with_smallest_sum();
 }
