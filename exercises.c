@@ -4,7 +4,14 @@
 #include <stdlib.h>
 #include "sorting.h"
 
+typedef struct
+{
+    int Key;
+    char *Value;
+} KeyValuePair;
+
 void do_minimize_sorted(int *sortedArray, size_t size);
+void do_sort_by_colour(KeyValuePair *sortedArray, size_t length);
 
 // Exercise 4.2
 void maximize_unsorted()
@@ -118,3 +125,69 @@ void pair_with_smallest_sum()
 }
 
 //------------------------------------------------------------------------------------------------------------
+
+// Exercise 4.4
+
+void sort_by_colour()
+{
+    KeyValuePair sortedArray[] = {
+        {.Key = 1, .Value = "blue"},
+        {.Key = 3, .Value = "red"},
+        {.Key = 4, .Value = "blue"},
+        {.Key = 6, .Value = "yellow"},
+        {.Key = 9, .Value = "red"},
+    };
+
+    do_sort_by_colour(sortedArray, 5);
+}
+
+void do_sort_by_colour(KeyValuePair *sortedArray, size_t length)
+{
+    int blueCount = 0;
+    int redCount = 0;
+    int yellowCount = 0;
+
+    for (int i = 0; i < length; i++)
+    {
+        KeyValuePair current = sortedArray[i];
+        if (current.Value == "blue")
+            blueCount++;
+
+        if (current.Value == "red")
+            redCount++;
+    }
+
+    KeyValuePair result[length];
+
+    int redIndex = 0;
+    int blueIndex = redCount;
+    int yellowIndex = blueCount + redCount;
+    for (int i = 0; i < length; i++)
+    {
+        KeyValuePair current = sortedArray[i];
+        if (current.Value == "blue")
+        {
+            result[blueIndex] = current;
+            blueIndex++;
+        }
+
+        if (current.Value == "red")
+        {
+            result[redIndex] = current;
+            redIndex++;
+        }
+
+        if (current.Value == "yellow")
+        {
+            result[yellowIndex] = current;
+            yellowIndex++;
+        }
+    }
+
+    printf("\nSort by colour result:\n");
+
+    for (int i = 0; i < length; i++)
+    {
+        printf("Item: %i, key: %i, value: %s\n", i, result[i].Key, result[i].Value);
+    }
+}

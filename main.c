@@ -36,4 +36,6 @@ int main(int, char **)
     minimize_sorted();
 
     pair_with_smallest_sum();
+
+    sort_by_colour();
 }

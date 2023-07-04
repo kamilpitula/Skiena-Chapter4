@@ -8,3 +8,7 @@ extern void minimize_sorted();
 //Exercise 4.3
 extern void pair_with_smallest_sum();
 //------------------------------
+
+//Exercise 4.4
+extern void sort_by_colour();
+//------------------------------
