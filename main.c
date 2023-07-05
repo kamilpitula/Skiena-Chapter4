@@ -38,4 +38,6 @@ int main(int, char **)
     pair_with_smallest_sum();
 
     sort_by_colour();
+
+    find_sum();
 }

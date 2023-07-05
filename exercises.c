@@ -1,8 +1,9 @@
 #include "exercises.h"
+#include "sorting.h"
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "sorting.h"
+#include <stdbool.h>
 
 typedef struct
 {
@@ -10,8 +11,15 @@ typedef struct
     char *Value;
 } KeyValuePair;
 
+typedef struct
+{
+    int Item1;
+    int Item2;
+} Tuple;
+
 void do_minimize_sorted(int *sortedArray, size_t size);
 void do_sort_by_colour(KeyValuePair *sortedArray, size_t length);
+bool does_sum_exist(int *firstSet, int *secondSet, size_t setsLength, int target, Tuple *result);
 
 // Exercise 4.2
 void maximize_unsorted()
@@ -90,12 +98,6 @@ void do_minimize_sorted(int *sortedArray, size_t size)
 //------------------------------------------------------------------------------------------------------------
 
 // Exercise 4.3
-
-typedef struct
-{
-    int Item1;
-    int Item2;
-} Tuple;
 
 void pair_with_smallest_sum()
 {
@@ -190,4 +192,48 @@ void do_sort_by_colour(KeyValuePair *sortedArray, size_t length)
     {
         printf("Item: %i, key: %i, value: %s\n", i, result[i].Key, result[i].Value);
     }
+}
+
+// Exercise 4.6
+
+void find_sum()
+{
+    int set1[] = {2, 8, 4, 13, 1};
+    int set2[] = {9, 7, 5, 11, 3};
+    int target = 13;
+
+    Tuple values = {.Item1 = -1, .Item2 = -1};
+    bool result = does_sum_exist(set1, set2, 5, target, &values);
+
+    printf("%s sum for target: %i\n", result ? "Found" : "Did not find", target);
+    if (result)
+        printf("Values: (%i, %i)", values.Item1, values.Item2);
+}
+
+bool does_sum_exist(int *firstSet, int *secondSet, size_t setsLength, int target, Tuple *result)
+{
+    quick_sort(firstSet, setsLength);
+    quick_sort(secondSet, setsLength);
+
+    int firstIndex = 0;
+    int secondIndex = setsLength - 1;
+
+    while (firstIndex < setsLength && secondIndex >= 0)
+    {
+        int currentValue = firstSet[firstIndex] + secondSet[secondIndex];
+        if (currentValue == target)
+        {
+            result->Item1 = firstSet[firstIndex];
+            result->Item2 = secondSet[secondIndex];
+            return true;
+        }
+
+        if (currentValue > target)
+            secondIndex--;
+
+        if (currentValue < target)
+            firstIndex++;
+    }
+
+    return false;
 }

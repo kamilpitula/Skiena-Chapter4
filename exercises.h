@@ -12,3 +12,7 @@ extern void pair_with_smallest_sum();
 //Exercise 4.4
 extern void sort_by_colour();
 //------------------------------
+
+//Exercise 4.6
+
+extern void find_sum();
