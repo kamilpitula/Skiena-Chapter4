@@ -40,4 +40,6 @@ int main(int, char **)
     sort_by_colour();
 
     find_sum();
+
+    calculate_citations_index();
 }

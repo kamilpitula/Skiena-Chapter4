@@ -237,3 +237,28 @@ bool does_sum_exist(int *firstSet, int *secondSet, size_t setsLength, int target
 
     return false;
 }
+//------------------------------------------------------------------------------------------------------------
+
+// Exercise 4.7
+
+void calculate_citations_index()
+{
+    //sorted: 2,3,4,4,4,5,7,8,9,12
+    int citations_array[] = {8, 2, 4, 4, 5, 3, 7, 9, 4, 12};
+    int length = 10;
+    quick_sort(citations_array, length);
+
+    int index = 0;
+    for (int i = 9; i >= 0; i--)
+    {
+        if (citations_array[i] <= length - i)
+        {
+            index = length - i;
+            break;
+        }
+    }
+
+    printf("Citation index: %i\n", index);
+}
+
+//------------------------------------------------------------------------------------------------------------

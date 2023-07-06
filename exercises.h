@@ -16,3 +16,7 @@ extern void sort_by_colour();
 //Exercise 4.6
 
 extern void find_sum();
+
+//Exercise 4.7
+
+extern void calculate_citations_index();
