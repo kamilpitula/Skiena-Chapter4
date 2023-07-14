@@ -20,3 +20,7 @@ extern void find_sum();
 //Exercise 4.7
 
 extern void calculate_citations_index();
+
+//Exercise 4.9
+
+void does_k_sum_exist();

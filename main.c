@@ -42,4 +42,6 @@ int main(int, char **)
     find_sum();
 
     calculate_citations_index();
+
+    does_k_sum_exist();
 }

@@ -20,6 +20,8 @@ typedef struct
 void do_minimize_sorted(int *sortedArray, size_t size);
 void do_sort_by_colour(KeyValuePair *sortedArray, size_t length);
 bool does_sum_exist(int *firstSet, int *secondSet, size_t setsLength, int target, Tuple *result);
+int binary_search(int *arr, int l, int h, int x);
+void prepare_combinations(int *data, int *counter, int n, int k, int start, int index, int combinations_ix[][k]);
 
 // Exercise 4.2
 void maximize_unsorted()
@@ -132,6 +134,7 @@ void pair_with_smallest_sum()
 
 void sort_by_colour()
 {
+    printf("\nExercise 4.4\n");
     KeyValuePair sortedArray[] = {
         {.Key = 1, .Value = "blue"},
         {.Key = 3, .Value = "red"},
@@ -198,6 +201,7 @@ void do_sort_by_colour(KeyValuePair *sortedArray, size_t length)
 
 void find_sum()
 {
+    printf("\nExercise 4.6\n");
     int set1[] = {2, 8, 4, 13, 1};
     int set2[] = {9, 7, 5, 11, 3};
     int target = 13;
@@ -207,7 +211,7 @@ void find_sum()
 
     printf("%s sum for target: %i\n", result ? "Found" : "Did not find", target);
     if (result)
-        printf("Values: (%i, %i)", values.Item1, values.Item2);
+        printf("Values: (%i, %i)\n", values.Item1, values.Item2);
 }
 
 bool does_sum_exist(int *firstSet, int *secondSet, size_t setsLength, int target, Tuple *result)
@@ -243,7 +247,8 @@ bool does_sum_exist(int *firstSet, int *secondSet, size_t setsLength, int target
 
 void calculate_citations_index()
 {
-    //sorted: 2,3,4,4,4,5,7,8,9,12
+    printf("\nExercise 4.7\n");
+    // sorted: 2,3,4,4,4,5,7,8,9,12
     int citations_array[] = {8, 2, 4, 4, 5, 3, 7, 9, 4, 12};
     int length = 10;
     quick_sort(citations_array, length);
@@ -259,6 +264,84 @@ void calculate_citations_index()
     }
 
     printf("Citation index: %i\n", index);
+}
+
+//------------------------------------------------------------------------------------------------------------
+
+// Exercise 4.9
+
+void does_k_sum_exist()
+{
+    int arr[] = {8, 2, 5, 3, 9};
+    int arr_length = 5;
+    int t = 13;
+    int k = 3;
+
+    quick_sort(arr, arr_length); // O(nlogn)
+    int data[k - 1];
+    int(*combinations_ix)[100][k - 1] = malloc(sizeof(*combinations_ix));
+    int counter = 0;
+    prepare_combinations(data, &counter, arr_length, k - 1, 0, 0, *combinations_ix); // O(n^(k-1))
+
+    bool found = false;
+
+    for (int i = 0; i < counter; i++) // O(n^(k-1))
+    {
+        int sum = 0;
+        for (int j = 0; j < k - 1; j++)
+        {
+            int index = (*combinations_ix)[i][j];
+            sum += arr[index];
+        }
+
+        int search_res = binary_search(arr, 0, arr_length - 1, t - sum); // O(log n)
+
+        if (search_res != -1)
+        {
+            found = true;
+            break;
+        }
+    }
+
+    printf("%s sum in an array\n", found ? "Found" : "Didn't find");
+
+    free(combinations_ix);
+}
+
+void prepare_combinations(int *data, int *counter, int n, int k, int start, int index, int combinations_ix[][k])
+{
+    if (index == k)
+    {
+        for (int i = 0; i < k; i++)
+        {
+            combinations_ix[*counter][i] = data[i];
+        }
+        (*counter) += 1;
+        return;
+    }
+
+    for (int i = start; i < n; i++)
+    {
+        data[index] = i;
+        prepare_combinations(data, counter, n, k, i + 1, index + 1, combinations_ix);
+    }
+}
+
+int binary_search(int *arr, int l, int h, int x)
+{
+    if (l > h)
+        return -1;
+
+    int mid = l + (h - l) / 2;
+
+    if (arr[mid] == x)
+        return mid;
+
+    if (arr[mid] < x)
+        return binary_search(arr, l, mid - 1, x);
+
+    if (arr[mid] > x)
+        return binary_search(arr, mid + 1, h, x);
 }
 
 //------------------------------------------------------------------------------------------------------------
