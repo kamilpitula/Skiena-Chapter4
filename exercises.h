@@ -24,3 +24,7 @@ extern void calculate_citations_index();
 //Exercise 4.9
 
 void does_k_sum_exist();
+
+//Exercise 4.13
+
+void find_most_people_present();

@@ -359,3 +359,86 @@ int binary_search(int *arr, int l, int h, int x)
 }
 
 //------------------------------------------------------------------------------------------------------------
+
+// Exercise 4.13
+struct TimeLog
+{
+    int time;
+    int type; // enter = 0, exit = 1
+};
+
+int compare_timelog(const void *a, const void *b)
+{
+    struct TimeLog *p = (struct TimeLog *)a;
+    struct TimeLog *q = (struct TimeLog *)b;
+
+    if (p->time < q->time)
+        return -1;
+
+    if (p->time > q->time)
+        return 1;
+
+    return 0;
+}
+
+void find_most_people_present()
+{
+    printf("\nExercise 4.13\n");
+
+    int intervals[5][2] = {
+        {0, 9},
+        {1, 4},
+        {5, 8},
+        {3, 6},
+        {2, 7},
+    };
+
+    struct TimeLog log[10];
+
+    for (int i = 0; i < 5; i++)
+    {
+        struct TimeLog enter = {
+            .time = intervals[i][0],
+            .type = 0,
+        };
+
+        struct TimeLog exit = {
+            .time = intervals[i][1],
+            .type = 1,
+        };
+
+        log[i * 2] = enter;
+        log[i * 2 + 1] = exit;
+    }
+
+    quick_sort(log, sizeof(struct TimeLog), 10, compare_timelog);
+
+    int current = 0;
+
+    int currentMaxStart = 0;
+    int currentMaxEnd = 0;
+    int currentMax = 0;
+
+    for (int i = 0; i < 10; i++)
+    {
+        if (log[i].type == 0)
+        {
+            current++;
+        }
+
+        if (log[i].type == 1)
+        {
+            if (currentMax < current)
+            {
+                currentMax = current;
+                currentMaxStart = i - 1;
+                currentMaxEnd = i;
+            }
+            current--;
+        }
+    }
+
+    printf("The most people were present between %i and %i\n", log[currentMaxStart].time, log[currentMaxEnd].time);
+}
+
+//------------------------------------------------------------------------------------------------------------

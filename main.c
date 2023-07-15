@@ -44,4 +44,6 @@ int main(int, char **)
     calculate_citations_index();
 
     does_k_sum_exist();
+
+    find_most_people_present();
 }
