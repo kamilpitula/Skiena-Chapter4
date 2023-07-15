@@ -23,6 +23,20 @@ bool does_sum_exist(int *firstSet, int *secondSet, size_t setsLength, int target
 int binary_search(int *arr, int l, int h, int x);
 void prepare_combinations(int *data, int *counter, int n, int k, int start, int index, int combinations_ix[][k]);
 
+int compare_int(const void *a, const void *b)
+{
+    int *p = (int *)a;
+    int *q = (int *)b;
+
+    if (*p < *q)
+        return -1;
+
+    if (*p > *q)
+        return 1;
+
+    return 0;
+}
+
 // Exercise 4.2
 void maximize_unsorted()
 {
@@ -63,7 +77,7 @@ void minimize_unsorted()
 
     int unsortedArray[] = {6, 13, 19, 3, 8};
 
-    quick_sort(unsortedArray, 5);
+    quick_sort(unsortedArray, sizeof(int), 5, compare_int);
 
     do_minimize_sorted(unsortedArray, 5);
 }
@@ -106,7 +120,7 @@ void pair_with_smallest_sum()
     printf("Exercise 4.3 \n");
 
     int inputArray[] = {1, 4, 9, 2};
-    quick_sort(inputArray, 4);
+    quick_sort(inputArray, sizeof(int), 4, compare_int);
 
     Tuple pairs[2];
 
@@ -216,8 +230,8 @@ void find_sum()
 
 bool does_sum_exist(int *firstSet, int *secondSet, size_t setsLength, int target, Tuple *result)
 {
-    quick_sort(firstSet, setsLength);
-    quick_sort(secondSet, setsLength);
+    quick_sort(firstSet, sizeof(int), setsLength, compare_int);
+    quick_sort(secondSet, sizeof(int), setsLength, compare_int);
 
     int firstIndex = 0;
     int secondIndex = setsLength - 1;
@@ -251,7 +265,7 @@ void calculate_citations_index()
     // sorted: 2,3,4,4,4,5,7,8,9,12
     int citations_array[] = {8, 2, 4, 4, 5, 3, 7, 9, 4, 12};
     int length = 10;
-    quick_sort(citations_array, length);
+    quick_sort(citations_array, sizeof(int), length, compare_int);
 
     int index = 0;
     for (int i = 9; i >= 0; i--)
@@ -277,7 +291,7 @@ void does_k_sum_exist()
     int t = 13;
     int k = 3;
 
-    quick_sort(arr, arr_length); // O(nlogn)
+    quick_sort(arr, sizeof(int), arr_length, compare_int); // O(nlogn)
     int data[k - 1];
     int(*combinations_ix)[100][k - 1] = malloc(sizeof(*combinations_ix));
     int counter = 0;
