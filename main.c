@@ -46,4 +46,6 @@ int main(int, char **)
     does_k_sum_exist();
 
     find_most_people_present();
+    
+    merge_overlapping_intervals();
 }

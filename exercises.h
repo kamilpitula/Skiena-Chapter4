@@ -28,3 +28,7 @@ void does_k_sum_exist();
 //Exercise 4.13
 
 void find_most_people_present();
+
+//Exercise 4.14
+
+void merge_overlapping_intervals();

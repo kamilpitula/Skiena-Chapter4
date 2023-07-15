@@ -442,3 +442,73 @@ void find_most_people_present()
 }
 
 //------------------------------------------------------------------------------------------------------------
+
+// Exercise 4.13
+
+int compare_intervals(const void *a, const void *b)
+{
+    int *p = (int *)a;
+    int *q = (int *)b;
+
+    if (p[0] < q[0])
+        return -1;
+
+    if (p[0] > q[0])
+        return 1;
+
+    return 0;
+}
+
+void merge_overlapping_intervals()
+{
+    printf("\nExercise 4.14\n");
+
+    int intervals[6][2] = {
+        {2, 6},
+        {1, 3},
+        {8, 10},
+        {7, 9},
+        {7, 18},
+        {20, 22},
+    };
+
+    quick_sort(intervals, sizeof(int[2]), 4, compare_intervals);
+
+    int currentStart = intervals[0][0];
+    int currentEnd = intervals[0][1];
+
+    int buffer[10][2];
+    int counter = 0;
+
+    for (int i = 0; i < 5; i++)
+    {
+        if (intervals[i][1] >= intervals[i + 1][0])
+        {
+            if (currentEnd > intervals[i + 1][1])
+                continue;
+            currentEnd = intervals[i + 1][1];
+        }
+
+        if (intervals[i][1] < intervals[i + 1][0])
+        {
+            buffer[counter][0] = currentStart;
+            buffer[counter][1] = currentEnd;
+            counter++;
+
+            currentStart = intervals[i + 1][0];
+            currentEnd = intervals[i + 1][1];
+        }
+    }
+
+    buffer[counter][0] = currentStart;
+    buffer[counter][1] = currentEnd;
+    counter++;
+
+    printf("Merged set into intervals: \n");
+    for (int i = 0; i < counter; i++)
+    {
+        printf("* start: %i end: %i\n", buffer[i][0], buffer[i][1]);
+    }
+}
+
+//------------------------------------------------------------------------------------------------------------
