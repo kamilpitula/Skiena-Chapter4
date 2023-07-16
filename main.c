@@ -48,4 +48,6 @@ int main(int, char **)
     find_most_people_present();
     
     merge_overlapping_intervals();
+
+    find_k_smallest();
 }

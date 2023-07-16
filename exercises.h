@@ -32,3 +32,7 @@ void find_most_people_present();
 //Exercise 4.14
 
 void merge_overlapping_intervals();
+
+//Exercise 4.17
+
+void find_k_smallest();

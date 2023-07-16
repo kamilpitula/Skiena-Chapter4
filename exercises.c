@@ -1,5 +1,6 @@
 #include "exercises.h"
 #include "sorting.h"
+#include "heap.h"
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -508,6 +509,32 @@ void merge_overlapping_intervals()
     for (int i = 0; i < counter; i++)
     {
         printf("* start: %i end: %i\n", buffer[i][0], buffer[i][1]);
+    }
+}
+
+//------------------------------------------------------------------------------------------------------------
+
+// Exercise 4.17
+
+void find_k_smallest()
+{
+    printf("\nExercise 4.17\n");
+
+    int k = 3;
+    int array[] = {4, 1, 7, 9, 21, 3, 0, -3};
+    int ARR_LENGTH = 8;
+
+    Heap *heap;
+
+    init_heap(&heap, ARR_LENGTH);
+    make_heap(heap, array, ARR_LENGTH); // O(n)
+
+    printf("Printing k smallest elements of the array:\n");
+    for (int i = 0; i < k; i++)// O(k*log(n))
+    {
+        int min = extract_min(heap);
+
+        printf("The %i smallest element: %i\n", i + 1, min);
     }
 }
 

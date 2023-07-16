@@ -10,6 +10,7 @@ add_library(Exercises STATIC exercises.c exercises.h)
 add_executable(Chapter4 main.c)
 
 target_link_libraries(Exercises PUBLIC Sorting)
+target_link_libraries(Exercises PUBLIC Heap)
 target_link_libraries(Chapter4 PUBLIC Heap)
 target_link_libraries(Chapter4 PUBLIC Sorting)
 target_link_libraries(Chapter4 PUBLIC Exercises)
