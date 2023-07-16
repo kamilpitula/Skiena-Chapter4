@@ -530,11 +530,81 @@ void find_k_smallest()
     make_heap(heap, array, ARR_LENGTH); // O(n)
 
     printf("Printing k smallest elements of the array:\n");
-    for (int i = 0; i < k; i++)// O(k*log(n))
+    for (int i = 0; i < k; i++) // O(k*log(n))
     {
         int min = extract_min(heap);
 
         printf("The %i smallest element: %i\n", i + 1, min);
+    }
+}
+
+//------------------------------------------------------------------------------------------------------------
+
+// Exercise 4.18 O(nk)
+
+void do_merge_sorted_arrays_nk(int k, int n, int *arrays[k], int arrays_len[k], int res[n]);
+void merge_sorted_arrays_nk()
+{
+    printf("\nExercise 4.18 O(nk)\n");
+
+    int array1[] = {1, 4, 8};
+    int array2[] = {0, 6, 12, 14};
+    int array3[] = {-1, 3, 7, 11, 21};
+
+    int *arrays[] = {
+        array1,
+        array2,
+        array3,
+    };
+
+    int arrays_len[3] = {
+        3,
+        4,
+        5,
+    };
+
+    int res[12];
+
+    do_merge_sorted_arrays_nk(3, 12, arrays, arrays_len, res);
+
+    printf("Merged arrays using O(nk) algorithm\n");
+    for(int i = 0; i < 12; i++){
+        printf("%i ", res[i]);
+    }
+    printf("\n\n");
+}
+
+void do_merge_sorted_arrays_nk(int k, int n, int *arrays[k], int arrays_len[k], int res[n])
+{
+    int currentIndexes[k];
+    int currentResIndex = 0;
+
+    for (int i = 0; i < k; i++)
+    {
+        currentIndexes[i] = 0;
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        int currentMin_ix = -1;
+        for (int j = 0; j < k; j++)
+        {
+            if (currentIndexes[j] >= arrays_len[j])
+                continue;
+
+            if (currentMin_ix == -1)
+            {
+                currentMin_ix = j;
+                continue;
+            }
+
+            if (arrays[j][currentIndexes[j]] < arrays[currentMin_ix][currentIndexes[currentMin_ix]])
+                currentMin_ix = j;
+        }
+
+        res[currentResIndex] = arrays[currentMin_ix][currentIndexes[currentMin_ix]];
+        currentResIndex++;
+        currentIndexes[currentMin_ix]++;
     }
 }
 

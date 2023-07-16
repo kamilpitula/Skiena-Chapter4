@@ -50,4 +50,6 @@ int main(int, char **)
     merge_overlapping_intervals();
 
     find_k_smallest();
+
+    merge_sorted_arrays_nk();
 }

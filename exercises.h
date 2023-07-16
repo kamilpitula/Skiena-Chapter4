@@ -36,3 +36,6 @@ void merge_overlapping_intervals();
 //Exercise 4.17
 
 void find_k_smallest();
+
+//Exercise 4.18 O(nk)
+void merge_sorted_arrays_nk();
