@@ -1,7 +1,7 @@
 #include "sorting.h"
 
-int partition(input, typeSize, low, high, compare);
-void swap(void *a, void *b, size_t len);
+int partition(void *input, size_t typeSize, int low, int high, int (*compare)(const void *, const void *));
+void qsort_swap(void *a, void *b, size_t len);
 
 void do_quick_sort(void *input, size_t typeSize, int low, int high, int (*compare)(const void *, const void *));
 
@@ -32,7 +32,7 @@ int partition(void *input, size_t typeSize, int low, int high, int (*compare)(co
         if (compare(current, part) == -1)
         {
             unsigned char *firstHighPtr = ((unsigned char *)input) + (typeSize * firstHigh);
-            swap(current, firstHighPtr, typeSize);
+            qsort_swap(current, firstHighPtr, typeSize);
             firstHigh++;
         }
     }
@@ -40,12 +40,12 @@ int partition(void *input, size_t typeSize, int low, int high, int (*compare)(co
     unsigned char *firstHighPtr = ((unsigned char *)input) + (typeSize * firstHigh);
     unsigned char *part = ((unsigned char *)input) + (typeSize * p);
 
-    swap(firstHighPtr, part, typeSize);
+    qsort_swap(firstHighPtr, part, typeSize);
 
     return firstHigh;
 }
 
-void swap(void *a, void *b, size_t len)
+void qsort_swap(void *a, void *b, size_t len)
 {
     unsigned char *p = a;
     unsigned char *q = b;

@@ -516,6 +516,20 @@ void merge_overlapping_intervals()
 
 // Exercise 4.17
 
+int heap_compare_int(const void *a, const void *b)
+{
+    int *p = (int *)a;
+    int *q = (int *)b;
+
+    if (*p < *q)
+        return 1;
+
+    if (*p == *q)
+        return 0;
+
+    return -1;
+}
+
 void find_k_smallest()
 {
     printf("\nExercise 4.17\n");
@@ -526,16 +540,19 @@ void find_k_smallest()
 
     Heap *heap;
 
-    init_heap(&heap, ARR_LENGTH);
+    init_heap(&heap, ARR_LENGTH, sizeof(int), heap_compare_int);
     make_heap(heap, array, ARR_LENGTH); // O(n)
 
     printf("Printing k smallest elements of the array:\n");
     for (int i = 0; i < k; i++) // O(k*log(n))
     {
-        int min = extract_min(heap);
+        int min;
+        extract_root(heap, &min);
 
         printf("The %i smallest element: %i\n", i + 1, min);
     }
+
+    free_heap(heap);
 }
 
 //------------------------------------------------------------------------------------------------------------

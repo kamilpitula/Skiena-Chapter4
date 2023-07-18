@@ -3,20 +3,39 @@
 #include "sorting.h"
 #include "exercises.h"
 
+int heap_compare_int_main(const void *a, const void *b)
+{
+    int *p = (int *)a;
+    int *q = (int *)b;
+
+    if (*p < *q)
+        return 1;
+
+    if (*p == *q)
+        return 0;
+
+    return -1;
+}
+
 int main(int, char **)
 {
-    // printf("Hello, from Chapter4!\n");
-    // int array[] = {4, 7, 2, 1, 3, 12};
+    printf("Hello, from Chapter4!\n");
+    int array[] = {4, 7, 2, 1, 3, 12};
 
-    // Heap *heap = NULL;
-    // init_heap(&heap, 10);
-    // make_heap(heap, array, 6);
+    Heap *heap = NULL;
+    init_heap(&heap, 10, sizeof(int), heap_compare_int_main);
+    make_heap(heap, array, 6);
 
-    // for (int i = 0; i <= 10; i++)
-    // {
-    //     int element = extract_min(heap);
-    //     printf("Extracted element: %i\n", element);
-    // }
+    for (int i = 0; i <= 10; i++)
+    {
+        int element;
+        int res = extract_root(heap, &element);
+        if (res == -1)
+            break;
+        printf("Extracted element: %i\n", element);
+    }
+
+    free_heap(heap);
 
     // int arrayToSort[] = {4, 7, 2, 5, 1, 3};
 
@@ -46,7 +65,7 @@ int main(int, char **)
     does_k_sum_exist();
 
     find_most_people_present();
-    
+
     merge_overlapping_intervals();
 
     find_k_smallest();
