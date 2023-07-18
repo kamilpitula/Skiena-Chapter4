@@ -2,15 +2,19 @@
 
 typedef struct
 {
-    int *buffer;
+    void *buffer;
     size_t size;
+    size_t typeSize;
     int freeSpot;
+    int (*compare)(const void *, const void *);
 } Heap;
 
-extern void init_heap(Heap **heap, size_t size);
+extern void init_heap(Heap **heap, size_t bufferSize, size_t typeSize, int (*compare)(const void *, const void *));
 
-extern void heap_insert(Heap *heap, int n);
+extern void free_heap(Heap *heap);
 
-extern int extract_min(Heap *heap);
+extern void heap_insert(Heap *heap, void *n);
 
-extern void make_heap(Heap* heap, int* input, size_t n);
+extern int extract_root(Heap *heap, void *min);
+
+extern void make_heap(Heap *heap, void *input, size_t n);
