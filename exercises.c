@@ -585,7 +585,8 @@ void merge_sorted_arrays_nk()
     do_merge_sorted_arrays_nk(3, 12, arrays, arrays_len, res);
 
     printf("Merged arrays using O(nk) algorithm\n");
-    for(int i = 0; i < 12; i++){
+    for (int i = 0; i < 12; i++)
+    {
         printf("%i ", res[i]);
     }
     printf("\n\n");
@@ -622,6 +623,103 @@ void do_merge_sorted_arrays_nk(int k, int n, int *arrays[k], int arrays_len[k], 
         res[currentResIndex] = arrays[currentMin_ix][currentIndexes[currentMin_ix]];
         currentResIndex++;
         currentIndexes[currentMin_ix]++;
+    }
+}
+
+//------------------------------------------------------------------------------------------------------------
+
+// Exercise 4.18 O(nlogk)
+void do_merge_sorted_arrays_nlogk(int k, int n, int *arrays[k], int arrays_len[k], int res[n]);
+void merge_sorted_arrays_nlogk()
+{
+    printf("\nExercise 4.18 O(nlogk)\n");
+
+    int array1[] = {1, 4, 8};
+    int array2[] = {0, 6, 12, 14};
+    int array3[] = {-1, 3, 7, 11, 21};
+
+    int *arrays[] = {
+        array1,
+        array2,
+        array3,
+    };
+
+    int arrays_len[3] = {
+        3,
+        4,
+        5,
+    };
+
+    int res[12];
+
+    do_merge_sorted_arrays_nlogk(3, 12, arrays, arrays_len, res);
+
+    printf("Merged arrays using O(nlogk) algorithm\n");
+    for (int i = 0; i < 12; i++)
+    {
+        printf("%i ", res[i]);
+    }
+    printf("\n\n");
+}
+
+struct ArrayElement
+{
+    int currentValue;
+    int length;
+    int currentIndex;
+    int arrayIndex;
+};
+
+int heap_array_element_compare(const void *a, const void *b)
+{
+    struct ArrayElement *p = (struct ArrayElement *)a;
+    struct ArrayElement *q = (struct ArrayElement *)b;
+
+    if (p->currentValue < q->currentValue)
+        return 1;
+
+    if (p->currentValue > q->currentValue)
+        return -1;
+
+    return 0;
+}
+
+void do_merge_sorted_arrays_nlogk(int k, int n, int *arrays[k], int arrays_len[k], int res[n])
+{
+    Heap *heap;
+
+    init_heap(&heap, k, sizeof(struct ArrayElement), heap_array_element_compare);
+
+    struct ArrayElement initialArray[k];
+
+    for (int i = 0; i < k; i++)
+    {
+        struct ArrayElement element = {
+            .arrayIndex = i,
+            .currentIndex = 0,
+            .currentValue = arrays[i][0],
+            .length = arrays_len[i]};
+
+        initialArray[i] = element;
+    }
+
+    make_heap(heap, initialArray, k);
+
+    for (int i = 0; i < n; i++)
+    {
+        struct ArrayElement element;
+
+        int returned = extract_root(heap, &element);
+
+        if(returned == -1)
+            break;
+
+        res[i] = element.currentValue;
+
+        element.currentValue = arrays[element.arrayIndex][element.currentIndex + 1];
+        element.currentIndex++;
+        if (element.currentIndex < element.length)
+            heap_insert(heap, &element);
     }
 }
 

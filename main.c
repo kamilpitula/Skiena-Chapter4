@@ -71,4 +71,6 @@ int main(int, char **)
     find_k_smallest();
 
     merge_sorted_arrays_nk();
+
+    merge_sorted_arrays_nlogk();
 }

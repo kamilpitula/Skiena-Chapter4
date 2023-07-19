@@ -23,19 +23,22 @@ extern void calculate_citations_index();
 
 //Exercise 4.9
 
-void does_k_sum_exist();
+extern void does_k_sum_exist();
 
 //Exercise 4.13
 
-void find_most_people_present();
+extern void find_most_people_present();
 
 //Exercise 4.14
 
-void merge_overlapping_intervals();
+extern void merge_overlapping_intervals();
 
 //Exercise 4.17
 
-void find_k_smallest();
+extern void find_k_smallest();
 
 //Exercise 4.18 O(nk)
-void merge_sorted_arrays_nk();
+extern void merge_sorted_arrays_nk();
+
+//Exercise 4.18 O(nlogk)
+extern void merge_sorted_arrays_nlogk();
