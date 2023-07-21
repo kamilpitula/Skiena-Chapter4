@@ -75,4 +75,6 @@ int main(int, char **)
     merge_sorted_arrays_nlogk();
 
     sort_red_white_blue();
+
+    find_median();
 }

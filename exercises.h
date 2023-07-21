@@ -43,5 +43,9 @@ extern void merge_sorted_arrays_nk();
 //Exercise 4.18 O(nlogk)
 extern void merge_sorted_arrays_nlogk();
 
+//Exercise 4.21
+extern void find_median();
+
 //Exercise 4.23
 extern void sort_red_white_blue();
+

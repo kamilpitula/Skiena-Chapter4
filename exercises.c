@@ -774,3 +774,54 @@ void sort_red_white_blue()
 }
 
 //------------------------------------------------------------------------------------------------------------
+
+//Exercise 4.21
+float partition_for_median(size_t arrLength, int array[arrLength], int low, int high);
+void find_median()
+{
+    printf("\nExercise 4.21\n");
+    int array[] = {3, 5, 6, 1, 2, 9, 6};
+    // int array[] = {1, 2, 3};
+
+    size_t arrayLength = 7;
+    float median = partition_for_median(arrayLength, array, 0, arrayLength);
+
+    printf("Median = %f\n", median);
+}
+
+float partition_for_median(size_t arrLength, int array[arrLength], int low, int high)
+{
+    int p = high - 1;
+    int firstGreater = low;
+
+    for (int i = low; i < high - 1; i++)
+    {
+        if (array[i] <= array[p])
+        {
+            int temp = array[firstGreater];
+            array[firstGreater] = array[i];
+            array[i] = temp;
+            firstGreater++;
+        }
+    }
+
+    int temp = array[p];
+    array[p] = array[firstGreater];
+    array[firstGreater] = temp;
+
+    int mid = arrLength / 2;
+    int mod = arrLength % 2;
+
+    if (firstGreater == mid && mod == 0)
+        return (array[firstGreater] + array[firstGreater - 1]) / 2.0;
+
+    if (firstGreater == mid && mod == 1)
+        return array[firstGreater];
+
+    if (firstGreater < mid)
+        return partition_for_median(arrLength, array, firstGreater + 1, high);
+
+    return partition_for_median(arrLength, array, low, firstGreater);
+}
+
+//------------------------------------------------------------------------------------------------------------
