@@ -711,7 +711,7 @@ void do_merge_sorted_arrays_nlogk(int k, int n, int *arrays[k], int arrays_len[k
 
         int returned = extract_root(heap, &element);
 
-        if(returned == -1)
+        if (returned == -1)
             break;
 
         res[i] = element.currentValue;
@@ -720,6 +720,56 @@ void do_merge_sorted_arrays_nlogk(int k, int n, int *arrays[k], int arrays_len[k
         element.currentIndex++;
         if (element.currentIndex < element.length)
             heap_insert(heap, &element);
+    }
+}
+
+//------------------------------------------------------------------------------------------------------------
+
+// Exercise 4.23
+
+void do_sort_red_white_blue(size_t arrLength, char array[arrLength])
+{
+    int firstGreaterThanR = 0;
+
+    for (int i = 0; i < arrLength; i++)
+    {
+        if (array[i] == 'r')
+        {
+            array[i] = array[firstGreaterThanR];
+            array[firstGreaterThanR] = 'r';
+            firstGreaterThanR++;
+        }
+    }
+
+    int firstGreaterThanW = firstGreaterThanR;
+
+    for (int i = firstGreaterThanR; i < arrLength; i++)
+    {
+        if (array[i] == 'w')
+        {
+            array[i] = array[firstGreaterThanW];
+            array[firstGreaterThanW] = 'w';
+            firstGreaterThanW++;
+        }
+    }
+}
+
+void sort_red_white_blue()
+{
+    char array[] = {'b', 'w', 'w', 'r', 'b', 'r', 'w'};
+    // char array[] = {'b', 'r', 'b', 'r'};
+    // char array[] = {'w', 'r', 'w', 'r'};
+    // char array[] = {'w', 'b', 'w', 'b'};
+    // char array[] = {'w', 'w', 'w', 'w'};
+
+    size_t arrayLength = 7;
+
+    do_sort_red_white_blue(arrayLength, array);
+
+    printf("\nExercise 4.23\n");
+    for (int i = 0; i < arrayLength; i++)
+    {
+        printf("%c ", array[i]);
     }
 }
 
