@@ -775,7 +775,7 @@ void sort_red_white_blue()
 
 //------------------------------------------------------------------------------------------------------------
 
-//Exercise 4.21
+// Exercise 4.21
 float partition_for_median(size_t arrLength, int array[arrLength], int low, int high);
 void find_median()
 {
@@ -822,6 +822,41 @@ float partition_for_median(size_t arrLength, int array[arrLength], int low, int 
         return partition_for_median(arrLength, array, firstGreater + 1, high);
 
     return partition_for_median(arrLength, array, low, firstGreater);
+}
+
+//------------------------------------------------------------------------------------------------------------
+
+// Exercise 4.24
+void do_partition_negatives(size_t arrLength, int array[arrLength])
+{
+    int firstPositive = 0;
+
+    for (int i = 0; i < arrLength; i++)
+    {
+        if (array[i] < 0)
+        {
+            int temp = array[i];
+            array[i] = array[firstPositive];
+            array[firstPositive] = temp;
+            firstPositive++;
+        }
+    }
+}
+
+void partition_negatives()
+{
+    printf("\nExercise 4.24\n");
+    int inputArray[] = {3, 2, 1, -3, 0, 4, -7, -9};
+    size_t arrayLength = 8;
+
+    do_partition_negatives(arrayLength, inputArray);
+
+    printf("Partitioned array: ");
+
+    for (int i = 0; i < arrayLength; i++)
+    {
+        printf("%i ", inputArray[i]);
+    }
 }
 
 //------------------------------------------------------------------------------------------------------------

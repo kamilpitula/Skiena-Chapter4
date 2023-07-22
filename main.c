@@ -77,4 +77,6 @@ int main(int, char **)
     sort_red_white_blue();
 
     find_median();
+
+    partition_negatives();
 }

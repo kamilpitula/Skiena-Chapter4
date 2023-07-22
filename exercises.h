@@ -49,3 +49,6 @@ extern void find_median();
 //Exercise 4.23
 extern void sort_red_white_blue();
 
+//Exercise 4.24
+extern void partition_negatives();
+
