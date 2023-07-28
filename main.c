@@ -1,7 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "heap.h"
 #include "sorting.h"
 #include "exercises.h"
+#include "leetCode.h"
 
 int heap_compare_int_main(const void *a, const void *b)
 {
@@ -36,6 +38,13 @@ int main(int, char **)
     }
 
     free_heap(heap);
+
+    int nums1[] = {1, 7, 11};
+    int nums2[] = {2, 4, 6};
+    int returnSize;
+    int* returnSizes;
+
+    int** res = kSmallestPairs(nums1, 3, nums2, 3, 3, &returnSize, &returnSizes);
 
     // int arrayToSort[] = {4, 7, 2, 5, 1, 3};
 
