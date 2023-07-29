@@ -156,21 +156,30 @@ void bubble_down(Heap *heap, int p)
 
 void bubble_up(Heap *heap, int elementIndex)
 {
-    // current element is a root, we don't need to do anything
-    if (pq_parent(elementIndex) == -1)
-        return;
+    int parentIndex = pq_parent(elementIndex);
 
-    void *parent = getValue(heap, pq_parent(elementIndex));
-    void *current = getValue(heap, elementIndex);
-    if (heap->compare(parent, current) == -1)
+    while (1)
     {
-        // if parent is greater than newly inserted child
-        heap_swap(heap, pq_parent(elementIndex), elementIndex);
+        if (parentIndex == -1)
+            return;
 
-        // now the new parent can be bigger then its parent so we need to recursively
-        // repeat that operation until we reach the root element
-        bubble_up(heap, pq_parent(elementIndex));
+        void *parent = getValue(heap, parentIndex);
+        void *current = getValue(heap, elementIndex);
+        if (heap->compare(parent, current) == -1)
+        {
+            // if parent is greater than newly inserted child
+            heap_swap(heap, parentIndex, elementIndex);
+
+            // now the new parent can be bigger then its parent so we need to recursively
+            // repeat that operation until we reach the root element
+            parentIndex = pq_parent(parentIndex);
+        }
+        else
+        {
+            return;
+        }
     }
+    // current element is a root, we don't need to do anything
 }
 
 int pq_parent(int childIndex)
