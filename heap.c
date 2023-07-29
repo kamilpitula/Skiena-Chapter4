@@ -126,31 +126,40 @@ void make_heap(Heap *heap, void *input, size_t n)
 
 void bubble_down(Heap *heap, int p)
 {
-    int min_index = p;
+    int pTemp = p;
 
-    int youngest_child_ix = pq_young_child(p);
-
-    // check left and right child
-    for (int i = 0; i <= 1; i++)
+    while (1)
     {
-        // check if we are not out of range of the heap
-        if ((youngest_child_ix + i) <= heap->freeSpot - 1)
-        {
-            void *min = getValue(heap, min_index);
-            void *youngest = getValue(heap, youngest_child_ix + i);
+        int min_index = pTemp;
+        int youngest_child_ix = pq_young_child(pTemp);
 
-            if (heap->compare(min, youngest) == -1)
+        // check left and right child
+        for (int i = 0; i <= 1; i++)
+        {
+            // check if we are not out of range of the heap
+            if ((youngest_child_ix + i) <= heap->freeSpot - 1)
             {
-                min_index = youngest_child_ix + i;
+                void *min = getValue(heap, min_index);
+                void *youngest = getValue(heap, youngest_child_ix + i);
+
+                if (heap->compare(min, youngest) == -1)
+                {
+                    min_index = youngest_child_ix + i;
+                }
             }
         }
-    }
-    // when parent element is not the smallest - swap
-    // then repeat recursevely down the heap until it is
-    if (min_index != p)
-    {
-        heap_swap(heap, p, min_index);
-        bubble_down(heap, min_index);
+        // when parent element is not the smallest - swap
+        // then repeat recursevely down the heap until it is
+        if (min_index != pTemp)
+        {
+            heap_swap(heap, pTemp, min_index);
+
+            pTemp = min_index;
+        }
+        else
+        {
+            return;
+        }
     }
 }
 

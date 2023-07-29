@@ -39,12 +39,12 @@ int main(int, char **)
 
     free_heap(heap);
 
-    int nums1[] = {1, 7, 11};
-    int nums2[] = {2, 4, 6};
+    int nums1[] = {1, 2, 4, 5, 6};
+    int nums2[] = {3, 5, 7, 9};
     int returnSize;
     int* returnSizes;
 
-    int** res = kSmallestPairs(nums1, 3, nums2, 3, 3, &returnSize, &returnSizes);
+    int** res = kSmallestPairs(nums1, 5, nums2, 4, 3, &returnSize, &returnSizes);
 
     // int arrayToSort[] = {4, 7, 2, 5, 1, 3};
 

@@ -118,7 +118,7 @@ void do_minimize_sorted(int *sortedArray, size_t size)
 
 void pair_with_smallest_sum()
 {
-    printf("Exercise 4.3 \n");
+    printf("\nExercise 4.3 \n");
 
     int inputArray[] = {1, 4, 9, 2};
     quick_sort(inputArray, sizeof(int), 4, compare_int);
