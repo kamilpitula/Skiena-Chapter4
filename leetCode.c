@@ -17,14 +17,16 @@ int heap_compare_tuple(const void *a, const void *b)
     return 0;
 }
 
-int** kSmallestPairs(int* nums1, int nums1Size, int* nums2, int nums2Size, int k, int* returnSize, int** returnColumnSizes){
-
-    struct Tuple pairs[nums1Size * nums2Size];
+int **kSmallestPairs(int *nums1, int nums1Size, int *nums2, int nums2Size, int k, int *returnSize, int **returnColumnSizes)
+{
+    struct Tuple *pairs = malloc(sizeof(struct Tuple) * nums1Size * nums2Size);
 
     int c = 0;
-    for(int i = 0; i < nums1Size; i++){
-        for(int j = 0; j < nums2Size; j++){
-            
+    for (int i = 0; i < nums1Size; i++)
+    {
+        for (int j = 0; j < nums2Size; j++)
+        {
+
             struct Tuple tp = {
                 .sum = nums1[i] + nums2[j],
                 .i = i,
@@ -43,33 +45,35 @@ int** kSmallestPairs(int* nums1, int nums1Size, int* nums2, int nums2Size, int k
 
     struct Tuple resTemp[k];
     int resCount = 0;
-    
-    for(int i = 0; i < k; i++){
+
+    for (int i = 0; i < k; i++)
+    {
         struct Tuple temp;
 
         int hRes = extract_root(heap, &temp);
 
-        if(hRes == -1)
+        if (hRes == -1)
             break;
-        
+
         resTemp[i] = temp;
         resCount++;
     }
-    
-    int** res = malloc(sizeof(int*) * resCount);
 
-    for(int i = 0; i < resCount; i++){
-        int* temp = malloc(sizeof(int) * 2);
+    int **res = malloc(sizeof(int *) * resCount);
+
+    for (int i = 0; i < resCount; i++)
+    {
+        int *temp = malloc(sizeof(int) * 2);
         temp[0] = resTemp[i].i;
         temp[1] = resTemp[i].j;
-        
 
         res[i] = temp;
     }
 
     *returnColumnSizes = (int *)malloc(sizeof(int) * resCount);
 
-    for(int i = 0; i < resCount; i++){
+    for (int i = 0; i < resCount; i++)
+    {
         (*returnColumnSizes)[i] = 2;
     }
 
